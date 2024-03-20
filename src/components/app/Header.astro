@@ -1,0 +1,177 @@
+---
+import AppLogo from './Logo.astro';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+const menuLinks = [
+	{ title: 'about', name: 'about', href: '#' },
+	{ title: 'pricing', name: 'pricing', href: '#' },
+	{ title: 'contact', name: 'contact', href: '#' },
+];
+---
+
+<header class="header">
+	<div class="header__container">
+		<AppLogo title={title} class:list="header__logo" />
+		<div class="header__menu menu">
+			<div class="menu__burger burger-menu"><span></span></div>
+			<div class="menu__body">
+				<ul class="menu__list">
+					{
+						menuLinks.map(link => (
+							<li class="menu__item">
+								<a href={link.href} class="menu__link">
+									{link.title}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+		<div class="header__button">
+			<button class="button button_nav"><span>buy nfts</span></button>
+		</div>
+	</div>
+</header>
+
+<script>
+	// menu-burger
+	const menuBurger = document.querySelector<HTMLElement>('.burger-menu');
+	const menuBody = document.querySelector<HTMLElement>('.menu__body');
+	if (menuBurger && menuBody) {
+		menuBurger.addEventListener('click', () => {
+			document.body.classList.toggle('_lock');
+			menuBurger.classList.toggle('_active');
+			menuBody?.classList.toggle('_active');
+		});
+
+		// header__button в бургере
+		const menuBtn = document.querySelector('.header__button')?.cloneNode(true) as HTMLElement;
+		menuBtn.setAttribute('class', 'menu__button');
+
+		const insertMenuBtn = () => {
+			if (menuBody && window.innerWidth <= 480) {
+				menuBody.appendChild(menuBtn);
+			} else {
+				menuBody.removeChild(menuBtn);
+			}
+		};
+
+		insertMenuBtn();
+		window.addEventListener('resize', insertMenuBtn);
+	}
+</script>
+
+<style lang="scss">
+	.header {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: 50;
+		&::before {
+			content: '';
+			@extend %abs100;
+			background-color: $mainbgc;
+			z-index: -1;
+		}
+		&::after {
+			content: '';
+			@extend %blurcircle;
+			top: 0;
+			left: 0;
+			transform: translate(50%, -66%);
+			@media (max-width: $bp980) {
+				transform: translate(25%, -66%);
+			}
+			background-color: rgba(141, 141, 218, 0.5);
+			z-index: 10;
+		}
+		&__container {
+			padding: 15px;
+			min-height: 7em;
+			display: flex;
+			align-items: center;
+		}
+		&__logo {
+		}
+		&__menu {
+			padding: 0px 21px;
+		}
+		&__button {
+			padding: 0px 20px;
+			@media (max-width: $bp480) {
+				display: none;
+			}
+		}
+	}
+
+	// Menu Burger
+	@media (max-width: $bp760) {
+		.header__logo {
+			margin-left: 20px;
+		}
+		.menu {
+			margin-left: 0;
+			&__burger {
+				cursor: pointer;
+				display: block;
+				position: relative;
+				width: 32px;
+				height: 28px;
+				z-index: 10;
+				&::before,
+				&::after,
+				span {
+					position: absolute;
+					left: 0;
+					width: 100%;
+					height: 4px;
+					border-radius: 4px;
+					background-color: $txtcolor;
+				}
+				&::before,
+				&::after {
+					content: '';
+				}
+				&::before {
+					top: 0;
+				}
+				&::after {
+					bottom: 0;
+				}
+				span {
+					top: 50%;
+					transform: translate(0, -50%);
+				}
+			}
+			&__body {
+				position: fixed;
+				top: -200vw;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				padding: 170px 30px 30px 30px;
+				background-color: #131556;
+				transition: top 0.3s ease 0s;
+				z-index: -2;
+				overflow: auto;
+				&._active {
+					top: 0;
+				}
+			}
+			&__list {
+				flex-direction: column;
+				row-gap: 40px;
+			}
+			&__link {
+				font-size: 1.3em;
+			}
+		}
+	}
+</style>

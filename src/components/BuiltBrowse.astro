@@ -1,0 +1,143 @@
+---
+import { Image } from 'astro:assets';
+import browseImg from '../assets/built-browse/browse.png';
+import builtInImg from '../assets/built-browse/built-in.png';
+---
+
+<article class="built-browse">
+	<div class="built-browse__container">
+		<section class="built-in">
+			<div class="built-in__wrapper">
+				<div class="built-in__content">
+					<div class="built-in__block-text block-text">
+						<h3 class="block-text__subtitle">Analytics</h3>
+						<h2 class="block-text__title">built-in analytics to track your nfts</h2>
+						<div class="block-text__text">
+							Use our built-in analytics dashboard to pull valuable insights and monitor the
+							value of your Krypto portfolio over time.
+						</div>
+					</div>
+					<div class="built-in__button">
+						<a class="button"><span>view our pricing</span></a>
+					</div>
+				</div>
+				<div class="built-in__image">
+					<Image src={builtInImg} alt="Analytics" />
+				</div>
+			</div>
+		</section>
+		<section class="browse">
+			<div class="browse__wrapper">
+				<div class="browse__content">
+					<div class="browse__block-text block-text">
+						<h3 class="block-text__subtitle">Get our app</h3>
+						<h2 class="block-text__title">Browse NFTs from your smartphone</h2>
+						<div class="block-text__text">
+							Use our built-in analytics dashboard to pull valuable insights and monitor the
+							value of your Krypto portfolio over time.
+						</div>
+					</div>
+					<div class="browse__button"><a class="button"><span>View our pricing</span></a></div>
+				</div>
+				<div class="browse__image">
+					<Image src={browseImg} alt="Notepad" />
+				</div>
+			</div>
+		</section>
+	</div>
+</article>
+
+<style lang="scss">
+	.built-browse {
+		background-color: $mainbgc;
+		&__container {
+			padding-top: 15px;
+			@media (max-width: $bp760) {
+				padding-top: 35px;
+			}
+			@include adaptiv-value('padding-bottom', 151, 60, 2);
+			display: flex;
+			flex-direction: column;
+			row-gap: 2.6em;
+		}
+	}
+
+	.built-in,
+	.browse {
+		&__wrapper {
+			padding: 15px 0px;
+			display: flex;
+			align-items: center;
+			@media (max-width: $bp760) {
+				flex-direction: column;
+			}
+		}
+		&__content {
+			flex: 0 0 50%;
+		}
+		&__block-text {
+			h2 {
+				margin-top: 7px;
+				margin-bottom: 3px;
+				@media (max-width: $bp760) {
+					margin-top: 13px;
+					margin-bottom: 12px;
+				}
+			}
+			> div {
+				@include adaptiv-value('padding-right', 130, 0, 2);
+			}
+		}
+		&__button {
+			margin-top: 21px;
+			display: flex;
+		}
+		&__image {
+			flex: 0 0 50%;
+			display: flex;
+			justify-content: center;
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+
+	.built-in {
+		&__wrapper {
+			flex-direction: row-reverse;
+			@media (max-width: $bp760) {
+				flex-direction: column;
+			}
+		}
+		&__content {
+			padding: 15px 7px;
+			@media (max-width: $bp760) {
+				padding: 0px 15px;
+			}
+		}
+		&__block-text {
+		}
+		&__button {
+		}
+		&__image {
+		}
+	}
+
+	.browse {
+		&__wrapper {
+		}
+		&__content {
+			padding: 15px 0px;
+			padding-right: 12px;
+			@media (max-width: $bp760) {
+				padding: 0px 15px;
+			}
+		}
+		&__block-text {
+		}
+		&__button {
+		}
+		&__image {
+		}
+	}
+</style>

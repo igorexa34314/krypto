@@ -1,0 +1,171 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import discoverImg from '../assets/hero/discover.png';
+
+const featuredCompanies = await getCollection('companies');
+---
+
+<article class="hero">
+	<div class="hero__container">
+		<section class="discover">
+			<div class="discover__wrapper">
+				<div class="discover__content">
+					<div class="discover__block-text block-text">
+						<h1 class="block-text__title">Discover and collect rare NFTs</h1>
+						<div class="block-text__text">
+							The most secure marketplace for buying and selling unique crypto assets.
+						</div>
+					</div>
+					<div class="discover__buttons">
+						<div class="discover__button"><a class="button"><span>Buy nfts</span></a></div>
+						<div class="discover__button">
+							<a class="button button_transparent"><span>Sell nfts</span></a>
+						</div>
+					</div>
+				</div>
+				<div class="discover__image"><Image src={discoverImg} alt="Computer vector" /></div>
+			</div>
+		</section>
+		<section class="featured">
+			<div class="featured__wrapper">
+				<div class="featured__block-text">
+					<h3 class="block-text__subtitle">Featured on</h3>
+				</div>
+				<div class="featured__items">
+					{
+						featuredCompanies.map(company => (
+							<div class="featured__item">
+								<a href={company.data.homepage} class="featured__link">
+									<Image src={company.data.logo} alt={company.data.name} />
+								</a>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+	</div>
+</article>
+
+<style lang="scss">
+	.hero {
+		position: relative;
+		background-color: $mainbgc;
+		&::after {
+			content: '';
+			@extend %blurcircle;
+			right: 0;
+			bottom: 3%;
+			transform: translate(66%, 0);
+			background-color: rgba(171, 217, 217, 0.8);
+			z-index: 60;
+		}
+		&__container {
+			@include adaptiv-value('padding-top', 167, 125, 2);
+			@include adaptiv-value('padding-bottom', 98, 50, 2);
+		}
+	}
+
+	.discover {
+		&__wrapper {
+			@include adaptiv-value('padding-bottom', 163, 50, 2);
+			display: flex;
+			align-items: center;
+			@media (max-width: $bp980) {
+				flex-direction: column;
+				row-gap: 20px;
+			}
+		}
+		&__content {
+			padding-right: 12px;
+			flex: 0 0 50%;
+			@media (max-width: $bp980) {
+				padding: 0px 10px;
+				flex: 0 0 auto;
+			}
+		}
+		&__block-text {
+			padding-right: 55px;
+			@media (max-width: $bp980) {
+				padding-right: 0;
+			}
+			h1 {
+				@include adaptiv-value('font-size', 87, 40, 2);
+				margin-bottom: 0.2em;
+			}
+			> div {
+				padding-right: 60px;
+				@media (max-width: $bp980) {
+					padding-right: 0;
+				}
+			}
+		}
+
+		&__buttons {
+			@include adaptiv-value('margin-top', 43, 15, 2);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			@media (max-width: $bp980) {
+				justify-content: center;
+				@include adaptiv-value('column-gap', 40, 15, 2);
+			}
+		}
+
+		&__button {
+			display: flex;
+		}
+
+		&__image {
+			flex: 0 0 50%;
+			display: flex;
+			justify-content: center;
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+
+	.featured {
+		&__wrapper {
+		}
+		&__block-text {
+			margin-bottom: 15px;
+			@media (max-width: $bp760) {
+				text-align: center;
+			}
+		}
+		&__items {
+			padding: 19px 0px;
+			@include adaptiv-value('padding-right', 92, 30, 2);
+			@include adaptiv-value('padding-left', 62, 20, 2);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			@media (max-width: $bp760) {
+				margin: 0 auto;
+				flex-direction: column;
+				justify-content: flex-start;
+				max-width: fit-content;
+				row-gap: 40px;
+			}
+			background-color: rgba(99, 88, 189, 0.19);
+			border-radius: 7px;
+		}
+
+		&__item {
+		}
+
+		&__link {
+			&:hover img {
+				opacity: 1;
+			}
+			img {
+				opacity: 0.5;
+				max-width: 100%;
+				transition: all 0.4s ease 0s;
+			}
+		}
+	}
+</style>

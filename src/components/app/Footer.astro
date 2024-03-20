@@ -1,0 +1,267 @@
+---
+import ContactForm from '../ui/ContactForm.astro';
+import AppLogo from './Logo.astro';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+const footerLinks = [
+	{
+		name: 'main',
+		links: [
+			{ title: 'Home', name: 'home', href: '#' },
+			{ title: 'About', name: 'about', href: '#' },
+			{ title: 'Buy NFTs', name: 'buy', href: '#' },
+			{ title: 'Sell NFTs', name: 'sell', href: '#' },
+		],
+	},
+	{
+		name: 'market',
+		subtitle: 'Market',
+		links: [
+			{ title: 'Browse NFTs', name: 'browse', href: '#' },
+			{ title: 'Buy NFTs', name: 'buy', href: '#' },
+			{ title: 'Sell NFTs', name: 'sell', href: '#' },
+		],
+	},
+	{
+		name: 'socials',
+		subtitle: 'Contact',
+		links: [
+			{ title: 'Email', name: 'email', href: '#' },
+			{ title: 'LinkedIn', name: 'linkedIn', href: '#' },
+			{ title: 'Instagram', name: 'instagram', href: '#' },
+			{ title: 'Twitter', name: 'twitter', href: '#' },
+		],
+	},
+];
+---
+
+<footer class="footer">
+	<div class="footer__container">
+		<div class="footer__main">
+			<AppLogo title={title} class:list="footer__logo" />
+			<div class="footer__menu menu-footer">
+				{
+					footerLinks.map(category => (
+						<div class:list={['menu-footer__column', category.name]}>
+							{category.subtitle && <h3 class="menu-footer__title">{category.subtitle}</h3>}
+							<ul class="menu-footer__list">
+								{category.links.map(link => (
+									<li class="menu-footer__item">
+										<a href={link.href} class="menu-footer__link">
+											{link.title}
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					))
+				}
+			</div>
+		</div>
+		<div class="newsletter">
+			<h3 class="newsletter__title">Join our newsletter</h3>
+			<ContactForm class="newsletter__form" />
+		</div>
+	</div>
+</footer>
+
+<style lang="scss">
+	.footer {
+		position: relative;
+		background-color: $mainbgc;
+		&::before {
+			content: '';
+			@extend %blurcircle;
+			bottom: 0;
+			right: 0;
+			transform: translate(40%, 40%);
+			background-color: rgba(141, 141, 218, 0.5);
+		}
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 11px;
+			background: linear-gradient(278.71deg, #abd9d9 -20.32%, #5151c6 103.51%);
+		}
+		&__container {
+			padding-bottom: 64px;
+			display: flex;
+			flex-wrap: wrap;
+			@media (max-width: ($fullContainerWidth+px)) {
+				flex-direction: column;
+				row-gap: 30px;
+			}
+			@media (max-width: $bp760) {
+				padding-top: 15px;
+			}
+		}
+
+		&__main {
+			flex: 0 0 66.66%;
+			display: flex;
+			@media (max-width: $bp760) {
+				flex-direction: column;
+				align-items: center;
+				row-gap: 40px;
+			}
+		}
+
+		&__logo {
+			flex: 0 0 20%;
+			font-size: 1.1em;
+			line-height: 1.25;
+		}
+
+		&__menu {
+		}
+	}
+
+	.menu-footer {
+		flex: 0 0 80%;
+		display: flex;
+		@media (max-width: $bp760) {
+			margin: 0 auto;
+			width: 100%;
+			justify-content: space-between;
+		}
+		@media (max-width: $bp480) {
+			max-width: auto;
+			flex-direction: column;
+			align-items: stretch;
+			row-gap: 30px;
+		}
+		&__column {
+			padding-left: 20px;
+			flex: 0 0 33.3333%;
+			@media (max-width: $bp760) {
+				flex: 0 0 30%;
+				padding: 0 20px;
+			}
+			&:first-child {
+				padding-top: 39px;
+				padding-left: 25px;
+				@media (max-width: $bp760) {
+					padding: 0 20px;
+					padding-top: 39px;
+				}
+				@media (max-width: $bp480) {
+					padding-top: 0;
+					margin-bottom: 0px;
+				}
+			}
+			&:last-child {
+				padding-left: 4px;
+				@media (max-width: $bp760) {
+					padding: 0 20px;
+				}
+			}
+			& ul {
+				@media (max-width: $bp480) {
+					display: none;
+				}
+			}
+			.navbar-spoiler {
+				margin: 0;
+				margin-bottom: 19px;
+				text-align: center;
+				display: none;
+			}
+			h3 {
+			}
+		}
+
+		&__list {
+			@media (max-width: $bp480) {
+				text-align: center;
+			}
+		}
+
+		&__item {
+		}
+
+		&__link {
+			font-size: 0.8em;
+			line-height: 2;
+			font-family: $roboto;
+			font-weight: $regular;
+			color: #ffffff;
+			transition: all 0.3s ease 0s;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		&__title {
+			margin-bottom: 19px;
+			font-size: 0.8em;
+			line-height: 1.25;
+			&.navbar-spoiler {
+				display: none;
+			}
+			@media (max-width: $bp480) {
+				cursor: pointer;
+				position: relative;
+				display: inline-block;
+				left: 50%;
+				transform: translate(-50%, 0);
+				&::after {
+					content: '';
+					margin-left: 8px;
+					display: inline-block;
+					width: 0;
+					height: 0;
+					border: 5px solid transparent;
+					border-top-color: #ffffff;
+					border-bottom: 0;
+				}
+				&._active::after {
+					transform: rotate(180deg) translate(0, 50%);
+				}
+				&.navbar-spoiler {
+					display: inline-block;
+				}
+			}
+		}
+
+		&__form {
+			margin-top: 30px;
+		}
+	}
+
+	// Footer columns classes
+	.navbar {
+	}
+	.market {
+	}
+	.socials {
+	}
+
+	.newsletter {
+		flex: 0 0 33.33333%;
+		@media (max-width: ($fullContainerWidth+px)) {
+			margin: 0 auto;
+			margin-top: 30px;
+			padding: 0px 20px;
+			max-width: 600px;
+			@media (max-width: $bp480) {
+				max-width: 100%;
+			}
+			h3 {
+				text-align: center;
+			}
+		}
+		&__title {
+			margin-left: 9px;
+			font-size: 1.1em;
+			line-height: 1.25;
+		}
+	}
+</style>

@@ -1,0 +1,155 @@
+// Fonts
+@import './fonts.scss';
+
+// Reset
+@import './reset.scss';
+
+// Vars
+@import './vars.scss';
+
+// =============================================
+
+// Ограничивающий контейнер
+[class*='__container'] {
+	max-width: $fullContainerWidth + px;
+	margin: 0 auto;
+	padding: 0px $cntpd + px;
+
+	@media (max-width: ($fullContainerWidth+px)) {
+		max-width: $bp980;
+	}
+	@media (max-width: $bp980) {
+		max-width: $bp760;
+	}
+	@media (max-width: $bp760) {
+		max-width: none;
+	}
+}
+// =====================================================
+
+// Общие классы
+.menu {
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	&__burger {
+		display: none;
+	}
+	&__list {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		@include adaptiv-value('column-gap', 47, 10, 2);
+	}
+	&__link {
+		color: $txtcolor;
+		text-transform: uppercase;
+		transition: all 0.3s ease 0s;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	&__button {
+		margin-top: 50px;
+		position: relative;
+		display: inline-block;
+		left: 50%;
+		transform: translate(-50%, 0);
+	}
+}
+
+.button {
+	cursor: pointer;
+	@include adaptiv-value('padding-top', 23, 8, 2);
+	@include adaptiv-value('padding-bottom', 23, 8, 2);
+	@include adaptiv-value('padding-left', 71, 20, 2);
+	@include adaptiv-value('padding-right', 71, 20, 2);
+	@media (max-width: $bp640) {
+		line-height: 1;
+	}
+
+	background: $btncolor;
+	border: 1px solid $btncolor;
+	border-radius: 83px;
+	transition: all 0.3s ease 0s;
+
+	span {
+		color: $txtcolor;
+		text-transform: uppercase;
+	}
+
+	&:hover {
+		transform: translate(1%, 4%);
+		background-color: transparent;
+	}
+
+	&_transparent {
+		background-color: transparent;
+		border: 1px solid #abd9d9;
+		&:hover {
+			background: $btncolor;
+			border-color: $btncolor;
+		}
+	}
+
+	&_dark {
+		background-color: #000000;
+		border-color: #000000;
+		&:hover {
+			background-color: #5151c6;
+			border-color: #3b3bba;
+		}
+	}
+	&_submit {
+		padding: 7.5px 32.5px;
+		span {
+			letter-spacing: 0.1em;
+			font-size: 0.7em;
+			line-height: 2;
+			@media (max-width: $bp640) {
+				line-height: 1;
+			}
+		}
+	}
+	&_nav {
+		padding: 10px 25px;
+		border-color: #2d2879;
+		background-color: #2d2879;
+		border-radius: 60px;
+		span {
+			font-size: 0.8em;
+			line-height: 1.8;
+			&::before {
+				content: '';
+				margin-right: 14px;
+				display: inline-block;
+				width: 17px;
+				height: 17px;
+				border-radius: 9px;
+				transform: translate(0, 12.5%);
+				background-color: #9091dc;
+			}
+		}
+	}
+}
+
+.block-text {
+	&__title {
+		font-weight: $bold;
+		font-size: 2.85em;
+		line-height: 1;
+		text-transform: capitalize;
+	}
+	&__subtitle {
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: #abd9d9;
+	}
+	&__text {
+		font-family: $roboto;
+		font-weight: $regular;
+		font-size: 0.9em;
+		line-height: 1.5;
+	}
+}

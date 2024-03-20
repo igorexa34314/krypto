@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry, type CollectionEntry } from 'astro:content';
+
+interface Props {
+	review: CollectionEntry<'reviews'>;
+}
+
+const { review } = Astro.props;
+const reviewer = await getEntry(review.data.reviewer);
+---
+
+<div class="review">
+	{
+		reviewer?.data && (
+			<div class="reviewer">
+				<div class="reviewer__photo">
+					<Image
+						src={reviewer.data.photoURL}
+						alt={`${reviewer.data.firstname} ${reviewer.data.lastname}`}
+					/>
+				</div>
+				<div class="reviewer__name">
+					{`${reviewer.data.firstname} ${reviewer.data.lastname}`}
+				</div>
+			</div>
+		)
+	}
+
+	<div class="review__content">
+		{review.data.content}
+	</div>
+</div>
+
+<style lang="scss">
+	.review {
+		padding: 16px 20px 30px 20px;
+		@media (max-width: $bp980) {
+			margin: 0 auto;
+			max-width: 70%;
+		}
+		@media (max-width: $bp760) {
+			max-width: 75%;
+		}
+		@media (max-width: $bp640) {
+			max-width: 80%;
+		}
+		@media (max-width: $bp480) {
+			margin: 0 15px;
+			max-width: none;
+		}
+		background: rgba(255, 255, 255, 0.08);
+		border-radius: 20px;
+
+		&__content {
+			text-align: center;
+			font-size: 0.8em;
+			line-height: 1.2;
+		}
+	}
+	.reviewer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 24px;
+		&__photo {
+			padding: 19px;
+			@media (max-width: $bp640) {
+				padding: 10px;
+			}
+			img {
+				max-width: 99px;
+				max-height: 99px;
+			}
+		}
+		&__name {
+			text-align: center;
+			font-size: 1em;
+			line-height: 1.38;
+			margin-bottom: 1.2em;
+			@extend .block-text__subtitle;
+			color: $txtcolor;
+		}
+	}
+</style>

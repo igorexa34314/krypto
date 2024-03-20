@@ -1,0 +1,85 @@
+---
+interface Props {
+	text?: string;
+}
+
+const { text = '' } = Astro.props;
+---
+
+<button class="button button_nav"><span><slot>{text}</slot></span></button>
+
+<style lang="scss">
+	.button {
+		@include adaptiv-value('padding-top', 23, 8, 2);
+		@include adaptiv-value('padding-bottom', 23, 8, 2);
+		@include adaptiv-value('padding-left', 71, 20, 2);
+		@include adaptiv-value('padding-right', 71, 20, 2);
+		@media (max-width: $bp640) {
+			line-height: 1;
+		}
+
+		background: $btncolor;
+		border: 1px solid $btncolor;
+		border-radius: 83px;
+		transition: all 0.3s ease 0s;
+
+		span {
+			color: $txtcolor;
+			text-transform: uppercase;
+		}
+
+		&:hover {
+			transform: translate(1%, 4%);
+			background-color: transparent;
+		}
+
+		&_transparent {
+			background-color: transparent;
+			border: 1px solid #abd9d9;
+			&:hover {
+				background: $btncolor;
+				border-color: $btncolor;
+			}
+		}
+
+		&_dark {
+			background-color: #000000;
+			border-color: #000000;
+			&:hover {
+				background-color: #5151c6;
+				border-color: #3b3bba;
+			}
+		}
+		&_submit {
+			padding: 7.5px 32.5px;
+			span {
+				letter-spacing: 0.1em;
+				font-size: 0.7em;
+				line-height: 2;
+				@media (max-width: $bp640) {
+					line-height: 1;
+				}
+			}
+		}
+		&_nav {
+			padding: 10px 25px;
+			border-color: #2d2879;
+			background-color: #2d2879;
+			border-radius: 60px;
+			span {
+				font-size: 0.8em;
+				line-height: 1.8;
+				&::before {
+					content: '';
+					margin-right: 14px;
+					display: inline-block;
+					width: 17px;
+					height: 17px;
+					border-radius: 9px;
+					transform: translate(0, 12.5%);
+					background-color: #9091dc;
+				}
+			}
+		}
+	}
+</style>

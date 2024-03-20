@@ -1,0 +1,28 @@
+<script>
+	if (window.screen.width <= 480) {
+		const homeLink = document.querySelector<HTMLElement>('.navbar')?.firstChild?.firstChild;
+		const homeButton = document.createElement('h3');
+		homeButton.setAttribute('class', 'menu-footer__title navbar-spoiler');
+		homeButton.innerText = homeLink?.textContent || '';
+		document.querySelector('.navbar')?.prepend(homeButton);
+		console.log(homeButton);
+	}
+	const menuTitle = document.querySelectorAll<HTMLElement>('.menu-footer__title');
+	if (window.screen.width <= 480) {
+		menuTitle.forEach(elem => {
+			elem.addEventListener('click', () => {
+				if (elem.classList.contains('navbar-spoiler')) {
+					const firstEl = elem.nextElementSibling?.children[0] as HTMLElement;
+					firstEl.style.display = 'none';
+				}
+				elem.classList.toggle('_active');
+				elem.nextElementSibling?.slideToggle(300);
+			});
+		});
+	} else {
+		menuTitle.forEach(elem => {
+			elem.classList.remove('_active');
+			elem.nextElementSibling?.slideDown(300);
+		});
+	}
+</script>

@@ -1,0 +1,130 @@
+---
+import { getCollection } from 'astro:content';
+import InspirationReview from './inspiration/Review.astro';
+
+const reviews = await getCollection('reviews');
+---
+
+<article class="inspiration">
+	<div class="inspiration__container">
+		<section class="others-say">
+			<div class="others-say__wrapper">
+				<div class="others-say__block-text block-text">
+					<h3 class="block-text__subtitle">Testimonials</h3>
+					<h2 class="block-text__title">Read what others have to say</h2>
+				</div>
+				<div class="others-say__reviews reviews">
+					{reviews.map(review => <InspirationReview review={review} />)}
+				</div>
+			</div>
+		</section>
+		<section class="be-ready">
+			<div class="be-ready__wrapper">
+				<div class="be-ready__block-text block-text">
+					<h3 class="block-text__subtitle">Are you ready?</h3>
+					<h2 class="block-text__title">Be a part of the next big thing</h2>
+				</div>
+				<div class="be-ready__button">
+					<a class="button button_dark"><span>Get started</span></a>
+				</div>
+			</div>
+		</section>
+	</div>
+</article>
+
+<style lang="scss">
+	.inspiration {
+		position: relative;
+		background-color: $mainbgc;
+		&::before {
+			content: '';
+			@extend %blurcircle;
+			top: 0;
+			left: 0;
+			transform: translate(-57%, -47%);
+			background-color: rgba(171, 217, 217, 0.8);
+		}
+		&__container {
+			@include adaptiv-value('padding-bottom', 145, 60, 2);
+			@media (max-width: $bp760) {
+				padding-top: 15px;
+			}
+		}
+	}
+
+	.others-say {
+		&__wrapper {
+		}
+		&__block-text {
+			margin: 0 auto;
+			margin-bottom: 3.15em;
+			max-width: 50%;
+			@media (max-width: $bp1024) {
+				max-width: 60%;
+			}
+			@media (max-width: $bp640) {
+				max-width: 70%;
+			}
+			@media (max-width: $bp480) {
+				max-width: 75%;
+			}
+			@media (max-width: $bp320) {
+				max-width: 85%;
+			}
+			text-align: center;
+			h2 {
+				margin-top: 11px;
+			}
+		}
+		&__reviews {
+		}
+	}
+
+	.reviews {
+		display: flex;
+		column-gap: 14px;
+		row-gap: 30px;
+		@media (max-width: $bp980) {
+			flex-wrap: wrap;
+		}
+	}
+
+	.be-ready {
+		@include adaptiv-value('margin-top', 98, 55, 2);
+		background: linear-gradient(278.71deg, #abd9d9 -20.32%, #5151c6 103.51%);
+		border-radius: 1.5em;
+		&__wrapper {
+			@include adaptiv-value('padding-top', 58, 25, 2);
+			@include adaptiv-value('padding-bottom', 48, 18, 2);
+		}
+
+		&__block-text {
+			margin: 0 auto;
+			max-width: 50%;
+			text-align: center;
+
+			@media (max-width: $bp760) {
+				max-width: 60%;
+			}
+			@media (max-width: $bp640) {
+				max-width: 65%;
+			}
+			@media (max-width: $bp480) {
+				max-width: 77%;
+			}
+			@media (max-width: $bp320) {
+				max-width: 85%;
+			}
+			h3 {
+				margin-bottom: 33px;
+				color: #000000;
+			}
+		}
+
+		&__button {
+			margin-top: 1.45em;
+			display: flex;
+			justify-content: center;
+		}
+	}
+</style>

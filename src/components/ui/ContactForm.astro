@@ -1,0 +1,48 @@
+<form class="contact-form" method="post">
+	<input type="email" id="email" name="email" placeholder="Email Address" />
+	<button type="submit" class="button"><span>Submit</span></button>
+</form>
+
+<style lang="scss">
+	.contact-form {
+		padding: 5px 4px 5px 23px;
+		display: flex;
+		align-items: center;
+		background-color: #13124f;
+		border-radius: 70px;
+		@media (max-width: $bp320) {
+			padding: 4px 8px;
+			flex-direction: column;
+			row-gap: 15px;
+			align-items: center;
+			background-color: transparent;
+			border-radius: 0;
+		}
+		input[name='email'] {
+			margin-top: 7px;
+			margin-bottom: auto;
+			flex: 1 1 auto;
+			@media (max-width: $bp320) {
+				margin: 0;
+				padding: 4px 10px;
+				border-radius: 70px;
+			}
+			font-family: $roboto;
+			font-weight: 400;
+			font-size: 0.8em;
+			line-height: 2;
+			color: $txtcolor;
+			&,
+			&:focus {
+				background-color: transparent;
+				@media (max-width: $bp320) {
+					background-color: #13124f;
+				}
+			}
+			&::placeholder {
+				color: #ffffff;
+			}
+			opacity: 0.67;
+		}
+	}
+</style>

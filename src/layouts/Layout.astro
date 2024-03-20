@@ -1,0 +1,50 @@
+---
+import AppHead from '../components/app/Head.astro';
+import AppHeader from '../components/app/Header.astro';
+import AppFooter from '../components/app/Footer.astro';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<AppHead title={title} />
+
+	<body>
+		<div class="wrapper">
+			<AppHeader title={title} />
+			<main class="main">
+				<slot />
+			</main>
+			<AppFooter title={title} />
+		</div>
+
+		<style lang="scss">
+			body {
+				width: 100%;
+				font-family: $outfit;
+				font-weight: $semiblod;
+				@include adaptiv-value('font-size', $fzmain, 15, 2);
+				line-height: 1.375;
+				color: $txtcolor;
+				&._lock {
+					overflow: hidden;
+				}
+			}
+			.wrapper {
+				min-width: 100%;
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+			}
+
+			.main {
+				flex: 1 1 auto;
+			}
+		</style>
+	</body>
+</html>
